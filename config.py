@@ -18,5 +18,6 @@ QUEUES = dict(
         'VisibilityTimeout': str(300),
         'FifoQueue': str(True),
         'ContentBasedDeduplication': str(True)
-    }
+    },
+    retries = 10
 )

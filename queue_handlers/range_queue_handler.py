@@ -5,6 +5,9 @@ from aws_helpers.message_wrapper import delete_messages, receive_messages, send_
 from aws_helpers.queue_wrapper import get_queue
 
 def populate_range_queue() -> None:
+    """
+    Populate ranges queue according to db size and configured number of partitions
+    """
     range_queue = get_queue(QUEUES['ranges'])
     data_len = get_rows_num()
     partitions_n = PARTITION_SETTINGS['count']
