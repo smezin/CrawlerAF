@@ -4,11 +4,19 @@ from aws_helpers.queue_wrapper import get_queue
 from config import QUEUES
 
 def send_tasks_to_queue(tasks: List[any]) -> None:
+    """
+    Sends tasks to tasks queue.
+    param tasks: list of objects that can be stringified with str
+    """
     tasks_queue = get_queue(QUEUES['tasks'])
     while tasks:
         send_message(tasks_queue, str(tasks.popleft()))
 
 def get_task_from_queue() -> str:
+    """
+    Gets task from tasks queue.
+    return: task as string
+    """
     tasks_queue = get_queue(QUEUES['tasks'])
     messages = receive_messages(tasks_queue, 1, 0)
     if messages:

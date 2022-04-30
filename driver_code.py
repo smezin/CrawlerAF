@@ -36,7 +36,6 @@ if __name__ == '__main__':
         processing_worker2.join()
     except KeyboardInterrupt:
         delete_queues()
-
     delete_queues()
     
 

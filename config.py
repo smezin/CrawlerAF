@@ -1,6 +1,3 @@
-from email.policy import default
-
-
 CONNECTIONS = dict(
     default = 'Driver={SQL Server};Server=SHAHAF-LP-HHS;Database=MilDb;Trusted_Connection=yes;'
 )
