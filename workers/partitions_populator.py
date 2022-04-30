@@ -2,7 +2,7 @@ from collections import deque
 import uuid
 from access_db import get_rows_num
 from config import PARTITION_SETTINGS
-from queue_handlers.range_queue_handler import send_partition_to_queue
+from queue_handlers.partition_queue_handler import send_partition_to_queue
 
 class PartitionsPopultor:
     def __init__(self) -> None:

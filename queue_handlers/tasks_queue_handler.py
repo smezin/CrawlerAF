@@ -5,7 +5,7 @@ from config import QUEUES
 
 def send_tasks_to_queue(tasks: List[any]) -> None:
     """
-    Sends tasks to tasks queue.
+    Sends tasks (messages) to tasks queue.
     param tasks: list of objects that can be stringified with str
     """
     tasks_queue = get_queue(QUEUES['tasks'])
@@ -14,7 +14,7 @@ def send_tasks_to_queue(tasks: List[any]) -> None:
 
 def get_task_from_queue() -> str:
     """
-    Gets task from tasks queue.
+    Gets a task from tasks queue.
     return: task as string
     """
     tasks_queue = get_queue(QUEUES['tasks'])

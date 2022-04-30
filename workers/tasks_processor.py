@@ -19,7 +19,6 @@ class TaskProcessor:
             self.task = None
 
         retries = QUEUES['retries']
-        self.task = get_task_from_queue()
         while retries > 0:
             self.task = get_task_from_queue()
             if self.task is None:

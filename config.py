@@ -7,7 +7,7 @@ CONNECTIONS = dict(
 )
 
 PARTITION_SETTINGS = dict(
-    count = 10
+    count = 100000
 )
 
 QUEUES = dict(

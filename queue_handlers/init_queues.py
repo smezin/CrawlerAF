@@ -5,7 +5,7 @@ from config import QUEUES
 
 logger = logging.getLogger(__name__)
 
-def setup_queues():
+def init_queues():
     """
     Set up 'partitions' and 'tasks' queues 
     """
@@ -15,18 +15,29 @@ def setup_queues():
     except:
         logger.error(f'Failed creating queue: {queue_name}')
         raise error
+    else:
+        print(f'{queue_name} was created successfully')
     try:
         queue_name = QUEUES['tasks']
         create_queue(queue_name, QUEUES['attributes'])
     except:
         logger.error(f'Failed creating queue: {queue_name}')
         raise error
+    else:
+        print(f'{queue_name} was created successfully')
+
 
 def delete_queues():
     """
     Delete 'partitions' and 'tasks' queues
     """
-    ranges_queue = get_queue(QUEUES['partitions'])
-    remove_queue(ranges_queue)
-    tasks_queue = get_queue(QUEUES['tasks'])
-    remove_queue(tasks_queue)
+    try:
+        ranges_queue = get_queue(QUEUES['partitions'])
+        remove_queue(ranges_queue)
+        tasks_queue = get_queue(QUEUES['tasks'])
+        remove_queue(tasks_queue)
+    except:
+        logger.error(f'Failed deleting queues')
+        raise error
+    else:
+        print('Queues deleted')

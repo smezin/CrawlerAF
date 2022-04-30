@@ -4,7 +4,7 @@ from collections import deque
 from typing import Deque
 from access_db import get_rows_range
 from config import QUEUES
-from queue_handlers.range_queue_handler import get_partition_from_queue
+from queue_handlers.partition_queue_handler import get_partition_from_queue
 from queue_handlers.tasks_queue_handler import send_tasks_to_queue
 
 class TasksExtractor:
@@ -28,6 +28,6 @@ class TasksExtractor:
             start = tasks_range[0]
             end = tasks_range[1]
             self.tasks = get_rows_range(start, end)
+            print(f'-----TasksExtractor sent tasks {start} to {end} to tasks queue by {id}')
             send_tasks_to_queue(self.tasks)
-            print(f'TasksExtractor sent tasks {start} to {end} to tasks queue by {id}')
 

@@ -1,42 +1,34 @@
 import multiprocessing
-from queue_handlers.queues_setup import delete_queues, setup_queues
+from queue_handlers.init_queues import delete_queues, init_queues
 from workers.partitions_populator import PartitionsPopultor
 from workers.tasks_extractor import TasksExtractor
 from workers.tasks_processor import TaskProcessor
 
+workers = []
 # Set instace of populator worker
 populator = PartitionsPopultor()
-populator_worker = multiprocessing.Process(target=populator.push_range_to_queue)
+workers.append(multiprocessing.Process(target=populator.push_range_to_queue))
 
 # Set 2 instaces of extraction worker
 extractor = TasksExtractor()
-extraction_worker1 = multiprocessing.Process(target=extractor.push_tasks_to_queue)
-extraction_worker2 = multiprocessing.Process(target=extractor.push_tasks_to_queue)
+for _ in range(2):
+    workers.append(multiprocessing.Process(target=extractor.push_tasks_to_queue))
 
 # Set 2 instances of processing worker
 processor = TaskProcessor()
-processing_worker1 = multiprocessing.Process(target=processor.process_tasks)
-processing_worker2 = multiprocessing.Process(target=processor.process_tasks)
+for _ in range(2):
+    workers.append(multiprocessing.Process(target=processor.process_tasks))
 
 # Multiprocess 
 if __name__ == '__main__':  
     try:
-        setup_queues()
+        init_queues()
 
-        populator_worker.start()
-        extraction_worker1.start()
-        extraction_worker2.start()
-        processing_worker1.start()
-        processing_worker2.start()
-
-        populator_worker.join()
-        extraction_worker1.join()
-        extraction_worker2.join()
-        processing_worker1.join()
-        processing_worker2.join()
+        for worker in workers:
+            worker.start()
+        for worker in workers:
+            worker.join()
     except KeyboardInterrupt:
         delete_queues()
+
     delete_queues()
-    
-
-
