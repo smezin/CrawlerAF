@@ -4,7 +4,6 @@ from access_db import get_rows_num
 from config import PARTITION_SETTINGS
 from queue_handlers.range_queue_handler import send_partition_to_queue
 
-
 class PartitionsPopultor:
     def __init__(self) -> None:
         """
@@ -13,7 +12,7 @@ class PartitionsPopultor:
         """
         def set_ranges():
             partitions = deque()
-            data_len = 105#get_rows_num()
+            data_len = get_rows_num()
             partitions_n = PARTITION_SETTINGS['count']
             size = data_len // partitions_n
             residue = data_len % partitions_n

@@ -1,3 +1,7 @@
+"""
+Environment must be set with valid AWS user credentials with permissions to access AWS SQS
+"""
+
 CONNECTIONS = dict(
     default = 'Driver={SQL Server};Server=SHAHAF-LP-HHS;Database=MilDb;Trusted_Connection=yes;'
 )

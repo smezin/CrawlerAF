@@ -4,7 +4,6 @@ from collections import deque
 from typing import Deque
 from access_db import get_rows_range
 from config import QUEUES
-
 from queue_handlers.range_queue_handler import get_partition_from_queue
 from queue_handlers.tasks_queue_handler import send_tasks_to_queue
 

@@ -1,3 +1,4 @@
+from distutils.log import error
 import logging
 from aws_helpers.queue_wrapper import create_queue, get_queue, remove_queue
 from config import QUEUES
@@ -12,13 +13,14 @@ def setup_queues():
         queue_name = QUEUES['partitions']
         create_queue(queue_name, QUEUES['attributes'])
     except:
-        logger.warn(f'Failed creating queue: {queue_name}')
-
+        logger.error(f'Failed creating queue: {queue_name}')
+        raise error
     try:
         queue_name = QUEUES['tasks']
         create_queue(queue_name, QUEUES['attributes'])
     except:
-        logger.warn(f'Failed creating queue: {queue_name}')
+        logger.error(f'Failed creating queue: {queue_name}')
+        raise error
 
 def delete_queues():
     """
