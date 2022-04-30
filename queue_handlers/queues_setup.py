@@ -6,10 +6,10 @@ logger = logging.getLogger(__name__)
 
 def setup_queues():
     """
-    Set up 'ranges' and 'tasks' queues 
+    Set up 'partitions' and 'tasks' queues 
     """
     try:
-        queue_name = QUEUES['ranges']
+        queue_name = QUEUES['partitions']
         create_queue(queue_name, QUEUES['attributes'])
     except:
         logger.warn(f'Failed creating queue: {queue_name}')
@@ -22,9 +22,9 @@ def setup_queues():
 
 def delete_queues():
     """
-    Delete 'ranges' and 'tasks' queues
+    Delete 'partitions' and 'tasks' queues
     """
-    ranges_queue = get_queue(QUEUES['ranges'])
+    ranges_queue = get_queue(QUEUES['partitions'])
     remove_queue(ranges_queue)
     tasks_queue = get_queue(QUEUES['tasks'])
     remove_queue(tasks_queue)

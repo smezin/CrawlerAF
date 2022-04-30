@@ -1,11 +1,13 @@
 import multiprocessing
 from queue_handlers.queues_setup import delete_queues, setup_queues
-from queue_handlers.range_queue_handler import populate_range_queue
+from workers.partitions_populator import PartitionsPopultor
 from workers.tasks_extractor import TasksExtractor
 from workers.tasks_processor import TaskProcessor
 
-# Set instance of populator worker
-populator_worker = multiprocessing.Process(target=populate_range_queue)
+# Set instace of populator worker
+populator = PartitionsPopultor()
+populator_worker = multiprocessing.Process(target=populator.push_range_to_queue)
+
 # Set 2 instaces of extraction worker
 extractor = TasksExtractor()
 extraction_worker1 = multiprocessing.Process(target=extractor.push_tasks_to_queue)
@@ -19,7 +21,6 @@ processing_worker2 = multiprocessing.Process(target=processor.process_tasks)
 # Multiprocess 
 if __name__ == '__main__':  
     try:
-        # Setup queues
         setup_queues()
 
         populator_worker.start()
@@ -35,7 +36,8 @@ if __name__ == '__main__':
         processing_worker2.join()
     except KeyboardInterrupt:
         delete_queues()
-        
+
     delete_queues()
+    
 
 

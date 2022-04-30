@@ -6,11 +6,11 @@ CONNECTIONS = dict(
 )
 
 PARTITION_SETTINGS = dict(
-    count = 100000
+    count = 10
 )
 
 QUEUES = dict(
-    ranges = 'RangesQueue.fifo',
+    partitions = 'PartitionQueue.fifo',
     tasks = 'TasksQueue.fifo',
     attributes = {
         'MaximumMessageSize': str(4096),
@@ -19,5 +19,6 @@ QUEUES = dict(
         'FifoQueue': str(True),
         'ContentBasedDeduplication': str(True)
     },
-    retries = 10
+    retries = 10,
+    sleep = 10
 )
