@@ -1,1 +1,1 @@
-# MultiProcess tasks handler
+# CrawlerAF - MultiProcess tasks handler
