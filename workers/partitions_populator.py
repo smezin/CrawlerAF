@@ -6,15 +6,13 @@ from queue_handlers.partition_queue_handler import send_partition_to_queue
 
 class PartitionsPopultor:
     def __init__(self) -> None:
-        self.data_len = None
         """
         On init set list of partitions is created and stored as attribute.
         Partition properties are set in configuration
         """
+        self.data_len = get_rows_num()
         def set_ranges():
             partitions = deque()
-            if self.data_len is None:
-                self.data_len = get_rows_num()
             partitions_n = PARTITION_SETTINGS['count']
             size = self.data_len // partitions_n
             residue = self.data_len % partitions_n
@@ -25,8 +23,8 @@ class PartitionsPopultor:
                 msg = ' '.join(str(num) for num in [partitions_n*size + 1, partitions_n*size + residue])
                 partitions.append(msg)
             return partitions
-
         self.partitions = set_ranges()
+
 
     
     def push_range_to_queue(self):
