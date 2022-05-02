@@ -28,6 +28,6 @@ class TasksExtractor:
             start = tasks_range[0]
             end = tasks_range[1]
             self.tasks = get_rows_range(start, end)
-            print(f'-----TasksExtractor sent tasks {start} to {end} to tasks queue by {id}')
+            print(f'TasksExtractor sent tasks {start} to {end} to tasks queue by {id}')
             send_tasks_to_queue(self.tasks)
 
